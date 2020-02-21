@@ -5,6 +5,8 @@ import NoteListNav from "./NoteListNav/NoteListNav";
 import NotePageNav from "./NotePageNav/NotePageNav";
 import NoteListMain from "./NoteListMain/NoteListMain";
 import NotePageMain from "./NotePageMain/NotePageMain";
+import AddNote from './AddNote'
+import AddFolder from './AddFolder';
 import NoteContext from './NoteContext';
 import config from './config';
 import "./App.css";
@@ -60,6 +62,8 @@ class App extends Component {
         />
         <Route path="/add-folder" component={NotePageNav} />
         <Route path="/add-note" component={NotePageNav} />
+        <Route path='/addFolder' component={AddFolder} />
+        <Route path='/AddNote' component={AddNote} />
       </>
     );
   }
@@ -84,12 +88,22 @@ class App extends Component {
     );
   }
 
+  addFolder(newFolder) {
+    this.setState({folder: [...this.state.folder, newFolder]})
+  }
+
+  addNote(newNote) {
+    this.setState({notes: [...this.state.notes, newNote]})
+  }
+
   render() {
     const value = {
       notes: this.state.notes, 
       folders: this.state.folders, 
-      deleteNote: this.handleDeleteNote
+      deleteNote: this.handleDeleteNote,
+      addFolder: this.addFolder,
     }
+
     return (
       <NoteContext.Provider value={value}>
       <div className="App">
